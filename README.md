@@ -15,6 +15,9 @@ A responsive React application for managing users through a REST API. It demonst
 - Loading and submission states
 - Success and error feedback
 - Prevent duplicate form submissions
+- Handle loading error,success,and empty states
+- Navigate without full-page reloads using React Router
+- Display a custom page for unmatched routes
 
 ## Technologies Used
 
