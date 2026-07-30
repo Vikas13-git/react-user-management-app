@@ -1,7 +1,8 @@
-import { useParams } from "react-router";
+import { useNavigate,useParams } from "react-router";
 import { useState, useEffect } from "react";
 function UserDetails() {
     const { id } = useParams();
+    const navigate = useNavigate();
     const [user, setUser] = useState(null);
     const [error, setError] = useState("");
 
@@ -40,6 +41,12 @@ function UserDetails() {
             <p>Name:{user.name}</p>
             <p>Email:{user.email}</p>
             <p>Phone:{user.phone}</p>
+            <button
+            type="button"
+            onClick={() => navigate("/")}
+            >
+                Back to Users
+            </button>
         </div>
     );
 }
