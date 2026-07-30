@@ -87,3 +87,7 @@ div{
 .success-message{
   color: green;
 }
+.nav{
+margin: 10px;
+padding: 30px;
+}

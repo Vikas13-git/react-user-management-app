@@ -1,3 +1,4 @@
+import { Link } from "react-router";
 function UserCard({user,onView,onDelete,isDeleting,onEdit }){
     return (
 <li className="user-card">
@@ -16,6 +17,9 @@ function UserCard({user,onView,onDelete,isDeleting,onEdit }){
     <button onClick={() => onEdit(user)}>
         Edit
     </button>
+    <Link to={`/users/${user.id}`}>
+    Open User Page
+    </Link>
 </li>  
 );
 }
