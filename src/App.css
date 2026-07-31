@@ -1,12 +1,12 @@
-@media(min-width: 800px){
-  .app-title{
-    white-space: nowrap;
-  }
+*,
+*::before,
+*::after{
+  box-sizing: border-box;
 }
 #root {
-  max-width: 700px;
-  margin: 0 auto;
-  padding: 30px;
+  width: 100%;
+  margin: 0;
+  padding: 0;
 }
 button{
   padding: 10px 16px;
@@ -23,9 +23,6 @@ button:hover{
 button:disabled{
   opacity: 0.5;
   cursor: not-allowed;
-}
-div{
-  background-color: rgb(245, 243, 243);
 }
 .selected-button{
   background-color: black;
@@ -50,7 +47,7 @@ background-color: blueviolet;
 align-items: left;
 }
 .user-card{
-  padding: auto;
+  padding: 16px;
   margin: 5px 0;
   border: 1px solid grey;
   border-radius: 8px;
@@ -63,8 +60,8 @@ h2{
   margin-top: 10px;
 }
 .input{
-  padding: auto;
-  margin: 0 5px;
+  padding: 10px 12px;
+  margin: 0 ;
   border: 1px solid grey;
   border-radius: 3px;
 background-color: #f0f0f0;
@@ -78,9 +75,6 @@ color: black;
   padding: 10px;
   background:linear-gradient(to right,blueviolet,rgb(150, 16, 207));
 }
-div{
-  background-color: rgb(255, 254, 254);
-}
 .error-message{
   color: red;
 }
@@ -88,10 +82,159 @@ div{
   color: green;
 }
 .nav{
-margin: 10px;
-padding: 30px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  margin: 10px 0;
+  padding: 12px;
+}
+.nav a {
+  padding: 8px 12px;
+  border-radius: 5px;
 }
 .active-link{
   font-weight: bold;
   text-decoration: underline;
+}
+.app-container{
+  width: 90%;
+  max-width: 900px;
+  margin: 0 auto;
+padding: 20px;
+box-sizing: border-box;
+background-color: #ffffff;
+}
+.form-controls{
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 12px;
+}
+.form-field{
+  display: flex;
+  flex: 1 1 200px;
+  flex-direction: column;
+  gap: 6px;
+}
+.form-field .input{
+  width: 100%;
+  box-sizing: border-box;
+}
+.users-toolbar{
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+.toolbar-field{
+  display: flex;
+  flex: 1 1 220px;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+.toolbar-field .input,
+.toolbar-field .sort{
+  width: 100%;
+  box-sizing: border-box;
+}
+.user-list{
+  display: grid;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.user-card{
+  width: 100%;
+  padding: 16px;
+  margin: 0;
+  border: 1px solid grey;
+  border-radius: 8px;
+  overflow-wrap: anywhere;
+}
+.user-actions{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 12px;
+}
+.user-actions a {
+  padding: 10px 16px;
+  border-radius: 5px;
+  background-color: blueviolet;
+  color: white;
+  text-decoration: none;
+}
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible{
+  outline: 3px solid #ffbf47;
+  outline-offset: 2px;
+}
+.edit-user-form{
+  margin: 20px 0;
+  padding: 16px;
+  border: 1px solid grey;
+  border-radius: 8px;
+}
+.form-actions{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+.user-status,
+.selected-user,
+.user-details{
+  margin: 16px 0;
+  padding: 16px;
+  border: 1px solid grey;
+  border-radius: 8px;
+  overflow-wrap: anywhere;
+}
+@media(max-width: 600px){
+  .app-container{
+    width: 100%;
+    padding: 12px;
+  }
+  .app-title{
+    font-size: 2rem;
+    line-height: 1.2;
+    overflow-wrap: anywhere;
+  }
+  .form-controls{
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .form-field{
+    flex:none;
+    width: 100%;
+  }
+  .form-controls button{
+    width: 100%;
+  }
+  .users-toolbar{
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .toolbar-field{
+    flex: none;
+    width: 100%;
+  }
+  .users-toolbar button{
+    width: 100%;
+  }
+  .user-actions > *{
+    flex: 1 1 140px;
+    text-align: center;
+  }
+  .form-actions button{
+    width: 100%;
+  }
 }

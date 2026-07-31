@@ -9,7 +9,7 @@ function UsersList() {
     const[error,setError] = useState("");
     const[searchTerm , setSearchTerm] = useState("");
     const[sortOrder,setSortOrder] = useState("asc");
-    const [refreshCount,setRefreshCount] = useState(0);
+    const[refreshCount,setRefreshCount] = useState(0);
     const[selecteduser,setSelectedUser] = useState(null);
     const[deletingUserId,setDeletingUserId] = useState(null);
     const[editingUser,setEditingUser]=useState(null);
@@ -120,17 +120,43 @@ if(selecteduser?.id === userId){
 };
 
 if (loading){
-    return<p>Loading users...</p>
+    return<p role="status">Loading users...</p>
 }
 if(error){
-    return<p>{error}</p>;
+    return<p role="alert">{error}</p>;
 }
 if(users.length === 0 ){
     return <p>No users found.</p>
 }
 return(
-    <>
-    <AddUserForm onUserAdded={handleUserAdded}/>
+    <div className="users-section">
+        <h2>Users</h2>
+        <div className="users-toolbar">
+            <div className="toolbar-field">
+                 <label htmlFor="user-search">Search users</label>
+            <input className="input"
+            id="user-search"
+            type="text"
+            placeholder="Search users"
+            value={searchTerm}
+            onChange={event => setSearchTerm(event.target.value)}
+            />
+            </div>
+            <div className="toolbar-field">
+                 <label htmlFor="user-sort">Sort users</label>
+            <select className="sort"
+            id="user-sort"
+            value={sortOrder}
+            onChange={event => setSortOrder(event.target.value)}>
+    <option value="asc">Name: A-Z</option>
+    <option value="desc">Name: Z-A</option>
+</select>
+</div>
+<button type="button" onClick={handleRefresh}>
+                Refresh
+            </button>
+            </div>
+  <AddUserForm onUserAdded={handleUserAdded}/>
     {editingUser && (
         <EditUserForm
      key={editingUser.id}
@@ -138,24 +164,6 @@ return(
      onUserUpdated = {handleUserUpdated}
      onCancel ={handleCancelEdit}
      />)}
-        <div>
-            <input className="input"
-            type="text"
-            placeholder="Search users"
-            value={searchTerm}
-            onChange={event => setSearchTerm(event.target.value)}
-            />
-            <h2>Users</h2>
-               <button onClick={handleRefresh}>
-                Refresh
-            </button>
-            <select className="sort"
-            value={sortOrder}
-            onChange={event => setSortOrder(event.target.value)}
->
-    <option value="asc">Name: A-Z</option>
-    <option value="desc">Name: Z-A</option>
-</select>
             {FilteredUsers.length === 0 ? (
                 <p>No matching users found.</p>
             ):(
@@ -178,12 +186,14 @@ return(
                     <p>Name: {selecteduser.name}</p>
                     <p>Email: {selecteduser.email}</p>
                     <p>Phone: {selecteduser.phone}</p>
-                    </div>
+                    
+                    <button type="button" onClick={handleCloseDetails}>
+                        Close Details
+                        </button>
+            </div>
             )}
-            <button onClick={handleCloseDetails}>Close Details</button>
+            
          
         </div>
-        </>
-);
-}
+)}
 export default UsersList;

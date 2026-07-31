@@ -41,29 +41,50 @@ catch(error){
 }
 
 return(
-  <form onSubmit={handleSubmit}>  
+  <form className="edit-user-form" onSubmit={handleSubmit}>  
+<h2>Edit User</h2>
+<div className="form-controls">
+    <div className="form-field">
+<label htmlFor="edit-user-name">Name</label>
 <input
+id="edit-user-name"
+type="text"
 value={name}
 onChange={event => setName(event.target.value)}
 />
-
+</div>
+<div className="form-field">
+<label htmlFor="edit-user-email">Email</label>
 <input
+id="edit-user-email"
+type="email"
 value={email}
 onChange={event => setEmail(event.target.value)}
 />
-
+</div>
+<div className="form-field">
+<label htmlFor="edit-user-phone">Phone</label>
 <input
+id="edit-user-phone"
+type="tel"
 value={phone}
 onChange={event => setPhone(event.target.value)}
 />
+</div>
+</div>
 
+{editError && (<p className="error-message" role="alert"
+>{editError}
+</p>
+)}
+<div className="form-actions">
 <button type="submit" disabled={savingchanges}>{savingchanges ? "Saving.." :"Save Changes"}</button>
-{editError && <p className="error-message">{editError}</p>}
 <button type="button" onClick={onCancel} 
 disabled={savingchanges}
 >
     Cancel
 </button>
+</div>
 </form>
 );
 }

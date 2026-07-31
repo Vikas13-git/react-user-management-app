@@ -51,33 +51,53 @@ catch(error){
     return(
         <form onSubmit={handleSubmit}>
             <h2>Add New User</h2>
+<div className="form-controls">
+    <div className="form-field">
+            <label htmlFor="user-name">Name</label>
+           
 
             <input className="input"
+            id="user-name"
             type="text"
             placeholder="Enter name"
             value={name}
             onChange={event => setName(event.target.value)}
             />
+</div>
+            <div className="form-field">
+            <label htmlFor="user-email">Email</label>
 
             <input className="input"
+            id="user-email"
             type="email"
             placeholder="Enter email"
             value={email}
             onChange={event => setEmail(event.target.value)}
             />
+</div>
+<div className="form-field">
 
+            <label htmlFor="user-phone">Phone</label>
             <input className="input"
+            id="user-phone"
             type="tel"
             placeholder="Enter phone"
             value={phone}
             onChange={event => setPhone(event.target.value)}
             />
-            
+            </div>
+
     <button type="submit" disabled={isSubmitting}>
         {isSubmitting ? "Adding..." : "Add User"}</button>
-
-        {formError && <p className="error-message">{formError}</p>}
-        {successmessage && <p className="success-message">{successmessage}</p>}
+</div>
+        {formError && (<p className="error-message" role="alert">
+            {formError}
+            </p>
+        )}
+        {successmessage && (<p className="success-message" role="status">
+            {successmessage}
+            </p>
+        )}
         </form>
     )
 }

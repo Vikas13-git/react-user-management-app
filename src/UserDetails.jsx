@@ -1,37 +1,26 @@
 import { useNavigate,useParams } from "react-router";
-import { useState, useEffect } from "react";
+import useFetch from "./hooks/UseFetch";
 function UserDetails() {
     const { id } = useParams();
     const navigate = useNavigate();
-    const [user, setUser] = useState(null);
-    const [error, setError] = useState("");
 
-    useEffect(() => {
-        const loadUser = async () => {
-            setError("");
-            setUser(null);
-            try {
-                const response = await fetch(`https://jsonplaceholder.typicode.com/users/${id}`
+    const{
+        data:user,
+        loading,
+        error
+    }=useFetch(
+            `https://jsonplaceholder.typicode.com/users/${id}`
 
-                );
+    );
 
-                if (!response.ok) {
-                    throw new Error("User Not Found");
-                }
-                const data = await response.json();
-                setUser(data)
-            }
-            catch (error) {
-                setError(error.message)
-            }
-        };
-        loadUser();
-    }, [id]);
     if (error) {
         return <p className="error-message">{error}</p>;
     }
-    if (!user) {
+    if (loading) {
         return <p>Loading user...</p>;
+    }
+    if(!user){
+        return<p>No user data found.</p>
     }
     return (
         <div className="user-details">
