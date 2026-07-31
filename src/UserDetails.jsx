@@ -1,5 +1,5 @@
 import { useNavigate,useParams } from "react-router";
-import useFetch from "./hooks/UseFetch";
+import useFetch from "./hooks/useFetch";
 function UserDetails() {
     const { id } = useParams();
     const navigate = useNavigate();
