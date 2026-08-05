@@ -1,4 +1,5 @@
 import { useState } from "react"
+import API_BASE_URL from "./config/api";
 function AddUserForm({onUserAdded}){
 
     const[name,setName]=useState("");
@@ -18,7 +19,7 @@ const[isSubmitting,setIsSubmitting] = useState(false);
 setFormError("");
 setIsSubmitting(true);
 try{    
-const response = await fetch (`https://jsonplaceholder.typicode.com/users`,{
+const response = await fetch (`${API_BASE_URL}/users`,{
 
     method:"POST",
     headers:{

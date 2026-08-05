@@ -1,5 +1,6 @@
 import { useNavigate,useParams } from "react-router";
 import useFetch from "./hooks/useFetch";
+import API_BASE_URL from "./config/api";
 function UserDetails() {
     const { id } = useParams();
     const navigate = useNavigate();
@@ -9,7 +10,7 @@ function UserDetails() {
         loading,
         error
     }=useFetch(
-            `https://jsonplaceholder.typicode.com/users/${id}`
+            `${API_BASE_URL}/users/${id}`
 
     );
 

@@ -1,5 +1,5 @@
 import { useState } from "react";
-
+import API_BASE_URL from "./config/api";
 function EditUserForm({user,onUserUpdated,onCancel}){
 const[name,setName] = useState(user.name);
 const[email,setEmail] = useState(user.email);
@@ -18,7 +18,7 @@ return;
     setSavingChanges(true);
 
     try{    
-const response = await fetch (`https://jsonplaceholder.typicode.com/users/${user.id}`,{
+const response = await fetch (`${API_BASE_URL}/users/${user.id}`,{
 
     method:"PATCH",
     headers:{

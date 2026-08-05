@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import UserCard from "./UserCard";
 import AddUserForm from "./AddUserForm";
 import EditUserForm from "./EditUserForm";
+import API_BASE_URL from "./config/api";
 
 function UsersList() {
     const[users, SetUsers] = useState([]);
@@ -31,9 +32,7 @@ return userB.name.localeCompare(userA.name);
     useEffect(() => {
     const loadUsers = async () => {
         try{
-        const response = await fetch(
-            "https://jsonplaceholder.typicode.com/users"
-        );
+        const response = await fetch(`${API_BASE_URL}/users`);
         if(!response.ok){
             throw new Error("Unable to load users");
         }
@@ -98,7 +97,7 @@ const handleDeleteUser = async userId =>{
   setError("");
     try{
     const response = await fetch(
-        `https://jsonplaceholder.typicode.com/users/${userId}`,
+        `${API_BASE_URL}/users/${userId}`,
     {
         method: "DELETE"
     }
@@ -124,9 +123,6 @@ if (loading){
 }
 if(error){
     return<p role="alert">{error}</p>;
-}
-if(users.length === 0 ){
-    return <p>No users found.</p>
 }
 return(
     <div className="users-section">
