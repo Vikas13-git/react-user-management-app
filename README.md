@@ -1,58 +1,99 @@
 # React User Management Application
 
-A frontend user-management application built with React and Vite. The project demonstrates component-based development, client-side routing, REST API integration, form validation, asynchronous workflows, and CRUD-style user operations.
+A full-stack MERN user-management application built with React, Node.js, Express.js, MongoDB Atlas, and Mongoose. It demonstrates component-based frontend development, REST API design, persistent CRUD operations, form validation, routing, automated testing, and cloud deployment.
 
 ## Live Demo
 
 [View the live application](https://react-user-management-app-five.vercel.app/)
 
+> The free Render backend may take up to a minute to start after being inactive.
+
 ## Features
 
-- Fetch and display users from a REST API
-- Search and sort users
-- Refresh the users list
-- View users through dynamic routes
-- Add users with validation and submission feedback
-- Edit users with `PATCH` requests
-- Delete users with confirmation and loading feedback
-- Handle loading, error, success, and empty states
-- Share application data using Context API
-- Reuse API logic through a custom Hook
-- Responsive and accessible interface
-- Automated component tests
-- Custom page for unmatched routes
+* Fetch and display users from MongoDB
+* Search and sort users
+* View users through dynamic routes
+* Add users with validation and submission feedback
+* Edit users with `PATCH` requests
+* Delete users with confirmation and loading feedback
+* Persist changes after refreshing the application
+* Handle loading, error, success, and empty states
+* Share application data using Context API
+* Reuse API logic through a custom Hook
+* Validate MongoDB user IDs through Express middleware
+* Responsive and accessible interface
+* Automated React component tests
+* Custom page for unmatched routes
 
-## Routes
+## Application Architecture
 
-| Path | Description |
-| --- | --- |
-| `/` | Displays the user-management interface |
-| `/about` | Displays the About page |
-| `/users/:id` | Fetches and displays a specific user |
-| `*` | Displays the Page Not Found message |
+| Layer    | Technology                 | Hosting       |
+| -------- | -------------------------- | ------------- |
+| Frontend | React and Vite             | Vercel        |
+| Backend  | Node.js and Express.js     | Render        |
+| Database | MongoDB Atlas and Mongoose | MongoDB Atlas |
+
+## Frontend Routes
+
+| Path         | Description                            |
+| ------------ | -------------------------------------- |
+| `/`          | Displays the user-management interface |
+| `/about`     | Displays the About page                |
+| `/users/:id` | Fetches and displays a specific user   |
+| `*`          | Displays the Page Not Found message    |
 
 ## Technologies Used
 
-- React
-- JavaScript
-- HTML5
-- CSS3
-- React Router
-- Context API
-- Fetch API
-- JSONPlaceholder
-- Vite
-- Vitest
-- React Testing Library
-- ESLint
-- Git and GitHub
-- Vercel
+### Frontend
 
-## API
+* React
+* JavaScript
+* HTML5
+* CSS3
+* React Router
+* Context API
+* Fetch API
+* Vite
+* Vitest
+* React Testing Library
+* Vercel
 
-The application uses the [JSONPlaceholder Users API](https://jsonplaceholder.typicode.com/users).
+### Backend
 
-JSONPlaceholder simulates `POST`, `PATCH`, and `DELETE` requests. These mutations return realistic responses but are not permanently stored on its server. The application updates local React state, so changes remain visible until the page is refreshed.
+* Node.js
+* Express.js
+* MongoDB Atlas
+* Mongoose
+* CORS
+* dotenv
+* Render
+
+### Development Tools
+
+* ESLint
+* Git
+* GitHub
+
+## Backend API
+
+The application uses a custom REST API built with Node.js, Express.js, Mongoose, and MongoDB Atlas.
+
+**Base URL:**
+
+```text
+https://react-user-management-app-gdz5.onrender.com/api
+```
+
+| Method   | Endpoint     | Purpose                          |
+| -------- | ------------ | -------------------------------- |
+| `GET`    | `/health`    | Check whether the API is running |
+| `GET`    | `/users`     | Retrieve all users               |
+| `GET`    | `/users/:id` | Retrieve one user                |
+| `POST`   | `/users`     | Create a user                    |
+| `PATCH`  | `/users/:id` | Update a user                    |
+| `DELETE` | `/users/:id` | Delete a user                    |
+
+The API returns appropriate HTTP status codes for successful requests, invalid input, missing users, and unexpected server errors.
 
 ## Getting Started
 
@@ -60,9 +101,10 @@ JSONPlaceholder simulates `POST`, `PATCH`, and `DELETE` requests. These mutation
 
 Install:
 
-- Node.js
-- npm
-- Git
+* Node.js
+* npm
+* Git
+* A MongoDB Atlas account
 
 ### Installation
 
@@ -78,25 +120,67 @@ Enter the project folder:
 cd react-user-management-app
 ```
 
-Install dependencies:
+Install frontend dependencies:
 
 ```bash
 npm install
 ```
 
-Start the development server:
+Install backend dependencies:
+
+```bash
+cd server
+npm install
+cd ..
+```
+
+### Environment Variables
+
+Create `.env.local` in the project root:
+
+```env
+VITE_API_BASE_URL=http://localhost:5000/api
+```
+
+Create `.env` inside the `server` directory:
+
+```env
+MONGODB_URI=your_mongodb_connection_string
+CLIENT_URL=http://localhost:5173
+PORT=5000
+```
+
+Do not commit either private environment file to Git.
+
+### Start the Backend
+
+From the `server` directory:
 
 ```bash
 npm run dev
 ```
 
-Open the local URL shown by Vite, normally:
+The backend normally runs at:
 
 ```text
-http://localhost:5173/
+http://localhost:5000
 ```
 
-## Available Scripts
+### Start the Frontend
+
+In a second terminal, from the project root:
+
+```bash
+npm run dev
+```
+
+The frontend normally runs at:
+
+```text
+http://localhost:5173
+```
+
+## Available Frontend Scripts
 
 ### Start development mode
 
@@ -128,11 +212,41 @@ npm run build
 npm run preview
 ```
 
+## Available Backend Scripts
+
+Run these commands from the `server` directory.
+
+### Start with automatic restart
+
+```bash
+npm run dev
+```
+
+### Start in production mode
+
+```bash
+npm start
+```
+
 ## Project Structure
 
 ```text
 .
+├── server/
+│   ├── controllers/
+│   │   └── userController.js
+│   ├── middleware/
+│   │   └── validateUserId.js
+│   ├── models/
+│   │   └── User.js
+│   ├── routes/
+│   │   └── userRoutes.js
+│   ├── .env.example
+│   ├── package.json
+│   └── server.js
 ├── src/
+│   ├── config/
+│   │   └── api.js
 │   ├── hooks/
 │   │   └── useFetch.js
 │   ├── test/
@@ -149,6 +263,7 @@ npm run preview
 │   ├── UserStatus.jsx
 │   ├── index.css
 │   └── main.jsx
+├── .env.example
 ├── vercel.json
 ├── vite.config.js
 └── package.json
@@ -156,30 +271,52 @@ npm run preview
 
 ## Concepts Practised
 
-- JSX and reusable components
-- Props and callback functions
-- State management with `useState`
-- Side effects with `useEffect`
-- Context API and `useContext`
-- Custom Hooks
-- Controlled forms and validation
-- Conditional rendering
-- Immutable array updates with spread, `map`, and `filter`
-- Asynchronous JavaScript with `async` and `await`
-- HTTP response and error handling
-- Client-side routing
-- Dynamic route parameters with `useParams`
-- Programmatic navigation with `useNavigate`
-- Component testing
-- Responsive and accessible UI design
-- Git version-control and deployment workflow
+### React
+
+* JSX and reusable components
+* Props and callback functions
+* State management with `useState`
+* Side effects with `useEffect`
+* Context API and `useContext`
+* Custom Hooks
+* Controlled forms and validation
+* Conditional rendering
+* Immutable updates with spread, `map`, and `filter`
+* Client-side routing and dynamic parameters
+* Programmatic navigation
+* Component testing
+* Responsive and accessible UI design
+
+### Backend
+
+* REST API design
+* Express routing
+* Controllers and middleware
+* HTTP methods and status codes
+* Mongoose schemas and models
+* MongoDB CRUD operations
+* Environment-variable management
+* CORS configuration
+* Asynchronous error handling
+* Object ID validation
+
+### Deployment
+
+* Git and GitHub workflow
+* Vercel frontend deployment
+* Render backend deployment
+* MongoDB Atlas network access
+* Production environment variables
+* Automated deployment from the `main` branch
 
 ## Future Improvements
 
-- Replace JSONPlaceholder with a persistent backend and database
-- Add authentication and protected routes
-- Add pagination
-- Expand API and routing test coverage
+* Add authentication and protected routes
+* Add pagination
+* Add stronger email and phone validation
+* Add backend API and controller tests
+* Add rate limiting and security middleware
+* Improve the design and user experience
 
 ## Author
 
