@@ -61,6 +61,13 @@ export const getUsers = async (request, response) => {
         if(phone !== undefined){
             updates.phone = phone;
         }
+
+        if(Object.keys(updates).length === 0) {
+            return response.status(400).json({
+                message: "At least one field is required"
+            });
+        }
+
         try{
             const updatedUser = await User.findByIdAndUpdate(
                 userId,
